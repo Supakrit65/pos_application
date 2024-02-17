@@ -55,4 +55,4 @@ When adding a line item to a sale, the system validates the request, checks if t
 For applying discounts, upon entering a phone number and clicking the discount button, the system validates the presence of a member associated with the provided phone number. If a member is found, a discount is applied, and member information is stored in the session. The transaction is processed by calculating the total sale amount, applying any discounts, creating a payment record, updating the sale status to complete, and clearing relevant session data. The flow concludes with a message indicating the successful processing of the payment, incorporating any applicable member discounts.
 
 ![POS System Sequence Diagram](assets/seqD.png)
-```
+
