@@ -121,23 +121,15 @@
                     </div>
                 </div>
 
-                <!-- Container for Buttons -->
-                <div class="flex justify-start items-center mt-6 space-x-4">
-                    <!-- Button to add more line item forms dynamically -->
-                    <button type="button" id="addMoreLineItems" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Add More Line Items
-                    </button>
-
-                    <!-- Process Payment Button -->
-                    @if($sale && $sale->lineItems->isNotEmpty())
-                        <form action="{{ route('transactions.processPayment', ['sale' => $sale->id]) }}" method="POST" class="flex">
-                            @csrf
-                            <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                Process Payment
-                            </button>
-                        </form>
-                    @endif
-                </div>
+                <!-- Process Payment Button -->
+                @if($sale && $sale->lineItems->isNotEmpty())
+                    <form action="{{ route('transactions.processPayment', ['sale' => $sale->id]) }}" method="POST" class="flex">
+                        @csrf
+                        <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                            Process Payment
+                        </button>
+                    </form>
+                @endif
 
             </div>
         </div>
