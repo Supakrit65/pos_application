@@ -3,17 +3,17 @@
 @section('content')
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 bg-white border-b border-gray-200">
+        <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 bg-white dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
                 
                 @if(session('success'))
-                    <div class="alert-box mb-4 text-sm font-medium text-green-600">
+                    <div class="alert-box mb-4 text-sm font-medium text-green-600 dark:text-green-400">
                         {{ session('success') }}
                     </div>
                 @endif
                 
                 @if(session('error'))
-                    <div class="alert-box mb-4 text-sm font-medium text-red-600">
+                    <div class="alert-box mb-4 text-sm font-medium text-red-600 dark:text-red-400">
                         {{ session('error') }}
                     </div>
                 @endif
@@ -25,7 +25,7 @@
                         if (alertBox) {
                             alertBox.style.display = 'none';
                         }
-                    }, 5000); // Adjust the time as needed
+                    }, 5000);
                 </script>
                 @endif
                 
@@ -40,22 +40,22 @@
                         @endphp
             
                         @if(session('member_info'))
-                            <span class="text-base">Original Total: ฿{{ number_format($total, 2) }}</span> <br>
-                            <span class="text-lg font-semibold">Discounted Total: ฿{{ number_format($totalAfterDiscount, 2) }}</span>
-                            <span class="text-sm">(10% member discount applied)</span>
+                            <span class="text-base text-gray-700 dark:text-gray-300">Original Total: ฿{{ number_format($total, 2) }}</span> <br>
+                            <span class="text-lg font-semibold text-gray-800 dark:text-white">Discounted Total: ฿{{ number_format($totalAfterDiscount, 2) }}</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">(10% member discount applied)</span>
                         @else 
-                            <span class="text-lg font-semibold">Total: ฿{{ number_format($total, 2) }}</span> 
+                            <span class="text-lg font-semibold text-gray-800 dark:text-white">Total: ฿{{ number_format($total, 2) }}</span> 
                         @endif
                     </h3>
                 </div>
                 
                 <!-- Member Discount Check Form -->
                 <div class="mt-6 mb-4">
-                    <h4 class="text-md font-semibold mb-2">Check Member Discount</h4>
+                    <h4 class="text-md font-semibold mb-2 dark:text-gray-300">Check Member Discount</h4>
                     <form action="{{ route('transactions.checkMember') }}" method="POST" class="flex items-center">
                         @csrf
                         <input type="hidden" name="sale_id" value="{{ $sale->id ?? '' }}">
-                        <input type="text" name="phone" placeholder="Member Phone Number" required class="form-input mr-2">
+                        <input type="text" name="phone" placeholder="Member Phone Number" required class="form-input mr-2 dark:bg-gray-900 dark:text-gray-300">
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Check and Apply Discount
                         </button>
@@ -65,9 +65,9 @@
                 @if(session('member_info'))
                 <div class="mb-4 flex justify-between">
                     <div>
-                        <h4 class="text-md font-semibold">Member Information:</h4>
-                        <p>Name: {{ session('member_info')['name'] }}</p>
-                        <p>Phone: {{ session('member_info')['phone'] }}</p>
+                        <h4 class="text-md font-semibold dark:text-gray-200">Member Information:</h4>
+                        <p class="text-gray-700 dark:text-gray-300">Name: {{ session('member_info')['name'] }}</p>
+                        <p class="text-gray-700 dark:text-gray-300">Phone: {{ session('member_info')['phone'] }}</p>
                     </div>
             
                     <!-- Remove Member Button -->
@@ -83,12 +83,12 @@
                 @if($sale && $sale->lineItems->isNotEmpty())
                     <div class="mb-6">
                         @foreach($sale->lineItems as $lineItem)
-                            <div class="flex justify-between items-center py-4 px-2 border rounded-lg mb-2">
+                            <div class="flex justify-between items-center py-4 px-2 border rounded-lg mb-2 bg-gray-100 dark:bg-gray-600">
                                 <div>
-                                    <p class="font-semibold">{{ $lineItem->item->name ?? 'Item name not available' }}</p>
-                                    <p>Quantity: {{ $lineItem->quantity }}</p>
-                                    <p>Price: ฿{{ $lineItem->item->price ?? 'Price not set' }}</p>
-                                    <p>Subtotal: ฿{{ $lineItem->quantity * ($lineItem->item->price ?? 0) }}</p>
+                                    <p class="font-semibold text-gray-800 dark:text-white">{{ $lineItem->item->name ?? 'Item name not available' }}</p>
+                                    <p class="text-gray-700 dark:text-gray-300">Quantity: {{ $lineItem->quantity }}</p>
+                                    <p class="text-gray-700 dark:text-gray-300">Price: ฿{{ $lineItem->item->price ?? 'Price not set' }}</p>
+                                    <p class="text-gray-700 dark:text-gray-300">Subtotal: ฿{{ $lineItem->quantity * ($lineItem->item->price ?? 0) }}</p>
                                 </div>
 
                                 <!-- Remove line item button -->
@@ -106,16 +106,16 @@
 
                 <!-- Container for adding line items -->
                 <div id="lineItemsContainer" class="mb-4">
-                    <h4 class="text-md font-semibold mb-2">Add Line Item</h4>
+                    <h4 class="text-md font-semibold mb-2 dark:text-gray-300">Add Line Item</h4>
                     <div class="line-item-form flex items-center mb-2">
                         <form action="{{ route('sales.addLineItem') }}" method="POST" class="w-full flex">
                             @csrf
-                            <select name="item_id" required class="form-select flex-1 mr-2">
+                            <select name="item_id" required class="form-select flex-1 mr-2 dark:bg-gray-900 dark:text-gray-300">
                                 @foreach($items as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
-                            <input type="number" name="quantity" min="1" placeholder="Quantity" required class="form-input flex-1 mr-2">
+                            <input type="number" name="quantity" min="1" placeholder="Quantity" required class="form-input flex-1 mr-2 dark:bg-gray-900 dark:text-gray-300">
                             <input type="hidden" name="sale_id" value="{{ $sale->id }}">
                             <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex-none">
                                 Add
