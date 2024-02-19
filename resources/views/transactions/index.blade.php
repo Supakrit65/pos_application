@@ -32,20 +32,23 @@
                 <!-- Display current total price -->
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold">
-                        Current Total: ฿
                         @php
                             $total = $sale ? $sale->getTotal() : 0;
                             $discountRate = session('discount_applied') ? 0.1 : 0; // 10% discount
                             $discountAmount = $total * $discountRate;
                             $totalAfterDiscount = $total - $discountAmount;
                         @endphp
-                        {{ number_format($totalAfterDiscount, 2) }}
-                        @if(session('discount_applied'))
+            
+                        @if(session('member_info'))
+                            <span class="text-base">Original Total: ฿{{ number_format($total, 2) }}</span> <br>
+                            <span class="text-lg font-semibold">Discounted Total: ฿{{ number_format($totalAfterDiscount, 2) }}</span>
                             <span class="text-sm">(10% member discount applied)</span>
+                        @else 
+                            <span class="text-lg font-semibold">Total: ฿{{ number_format($total, 2) }}</span> 
                         @endif
                     </h3>
                 </div>
-
+                
                 <!-- Member Discount Check Form -->
                 <div class="mt-6 mb-4">
                     <h4 class="text-md font-semibold mb-2">Check Member Discount</h4>
