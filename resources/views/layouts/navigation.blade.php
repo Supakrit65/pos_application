@@ -22,7 +22,7 @@
                 <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                     {{ __('Members') }}
                 </x-nav-link>
-                <x-nav-link :href="route('transactions.open')" :active="request()->routeIs('transactions')">
+                <x-nav-link :href="route('transactions.open')" :active="request()->routeIs('transactions.*')">
                     {{ __('Transactions') }}
                 </x-nav-link>
                 <!-- All Payments link -->
@@ -91,6 +91,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                 {{ __('Members') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('transactions.open')" :active="request()->routeIs('transactions')">
+                {{ __('Transactions') }}
             </x-responsive-nav-link>
             <!-- Responsive All Payments link -->
             <x-responsive-nav-link :href="route('payments.view')" :active="request()->routeIs('payments.view')">
